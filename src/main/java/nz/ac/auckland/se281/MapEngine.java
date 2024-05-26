@@ -41,7 +41,13 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    // add code here
+    MessageCli.INSERT_COUNTRY.printMessage();
+    String countryName = Utils.scanner.nextLine();
+
+    Country country = graph.getCountry(countryName);
+
+    MessageCli.COUNTRY_INFO.printMessage(
+        countryName, country.getContinent(), String.valueOf(country.getTax()));
   }
 
   /** this method is invoked when the user run the command route. */
