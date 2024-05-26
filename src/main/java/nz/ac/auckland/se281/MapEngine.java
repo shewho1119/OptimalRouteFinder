@@ -65,10 +65,35 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command route. */
   public void showRoute() {
-    MessageCli.INSERT_SOURCE.printMessage();
-    String sourceName = getCountryInput();
-    MessageCli.INSERT_DESTINATION.printMessage();
-    String destinationName = getCountryInput();
+    String sourceName;
+    String destinationName;
+
+    while (true) {
+      MessageCli.INSERT_SOURCE.printMessage();
+      sourceName = getCountryInput();
+      try {
+        Country country = graph.getCountry(sourceName);
+        MessageCli.COUNTRY_INFO.printMessage(
+            sourceName, country.getContinent(), String.valueOf(country.getTax()));
+        break;
+      } catch (CountryDoesNotExist e) {
+        MessageCli.INVALID_COUNTRY.printMessage(sourceName);
+      }
+    }
+
+    while (true) {
+      MessageCli.INSERT_DESTINATION.printMessage();
+      destinationName = getCountryInput();
+      try {
+        Country country = graph.getCountry(destinationName);
+        MessageCli.COUNTRY_INFO.printMessage(
+            destinationName, country.getContinent(), String.valueOf(country.getTax()));
+        break;
+      } catch (CountryDoesNotExist e) {
+        MessageCli.INVALID_COUNTRY.printMessage(destinationName);
+      }
+    }
+
     MessageCli.ROUTE_INFO.printMessage("[" + sourceName + ", " + destinationName + "]");
   }
 
