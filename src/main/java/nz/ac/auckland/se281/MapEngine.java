@@ -49,8 +49,8 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
+    MessageCli.INSERT_COUNTRY.printMessage();
     while (true) {
-      MessageCli.INSERT_COUNTRY.printMessage();
       String name = getCountryInput();
       try {
         Country country = graph.getCountry(name);
@@ -67,9 +67,8 @@ public class MapEngine {
   public void showRoute() {
     String sourceName;
     String destinationName;
-
+    MessageCli.INSERT_SOURCE.printMessage();
     while (true) {
-      MessageCli.INSERT_SOURCE.printMessage();
       sourceName = getCountryInput();
       try {
         Country country = graph.getCountry(sourceName);
@@ -81,8 +80,8 @@ public class MapEngine {
       }
     }
 
+    MessageCli.INSERT_DESTINATION.printMessage();
     while (true) {
-      MessageCli.INSERT_DESTINATION.printMessage();
       destinationName = getCountryInput();
       try {
         Country country = graph.getCountry(destinationName);
