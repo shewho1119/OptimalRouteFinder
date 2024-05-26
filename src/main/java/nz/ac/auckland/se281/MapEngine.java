@@ -64,7 +64,13 @@ public class MapEngine {
   }
 
   /** this method is invoked when the user run the command route. */
-  public void showRoute() {}
+  public void showRoute() {
+    MessageCli.INSERT_SOURCE.printMessage();
+    String sourceName = getCountryInput();
+    MessageCli.INSERT_DESTINATION.printMessage();
+    String destinationName = getCountryInput();
+    MessageCli.ROUTE_INFO.printMessage("[" + sourceName + ", " + destinationName + "]");
+  }
 
   public String getCountryInput() {
     while (true) {
