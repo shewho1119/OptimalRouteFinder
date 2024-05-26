@@ -1,7 +1,7 @@
 package nz.ac.auckland.se281;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,10 +16,14 @@ public class Graph {
 
   public void addCountryNode(Country country) {
     countries.putIfAbsent(country.getName(), country);
-    adjNodes.putIfAbsent(country, new HashSet<>());
+    adjNodes.putIfAbsent(country, new LinkedHashSet<>());
   }
 
   public void addEdge(Country country1, Country country2) {
     adjNodes.get(country1).add(country2);
+  }
+
+  public Country getCountry(String name) {
+    return countries.get(name);
   }
 }
