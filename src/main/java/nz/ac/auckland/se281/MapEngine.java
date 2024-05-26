@@ -56,7 +56,7 @@ public class MapEngine {
       try {
         Country country = graph.getCountry(correctedCountryName);
         MessageCli.COUNTRY_INFO.printMessage(
-            countryName, country.getContinent(), String.valueOf(country.getTax()));
+            correctedCountryName, country.getContinent(), String.valueOf(country.getTax()));
         break;
       } catch (CountryDoesNotExist e) {
         MessageCli.INVALID_COUNTRY.printMessage(correctedCountryName);
