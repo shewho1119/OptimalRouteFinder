@@ -26,6 +26,17 @@ public class MapEngine {
       Country country = new Country(name, continent, tax);
       graph.addCountryNode(country);
     }
+
+    // Load adjacencies
+    for (String line : adjacencies) {
+      String[] parts = line.split(",");
+      String countryName = parts[0];
+      Country country = graph.getCountry(countryName);
+      for (int i = 1; i < parts.length; i++) {
+        Country neighbor = graph.getCountry(parts[i]);
+        graph.addEdge(country, neighbor);
+      }
+    }
   }
 
   /** this method is invoked when the user run the command info-country. */
