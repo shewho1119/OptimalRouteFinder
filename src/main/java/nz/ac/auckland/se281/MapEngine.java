@@ -52,13 +52,14 @@ public class MapEngine {
     while (true) {
       MessageCli.INSERT_COUNTRY.printMessage();
       String countryName = Utils.scanner.nextLine();
+      String correctedCountryName = Utils.capitalizeFirstLetterOfEachWord(countryName);
       try {
-        Country country = graph.getCountry(countryName);
+        Country country = graph.getCountry(correctedCountryName);
         MessageCli.COUNTRY_INFO.printMessage(
             countryName, country.getContinent(), String.valueOf(country.getTax()));
         break;
       } catch (CountryDoesNotExist e) {
-        MessageCli.INVALID_COUNTRY.printMessage(countryName);
+        MessageCli.INVALID_COUNTRY.printMessage(correctedCountryName);
       }
     }
   }
