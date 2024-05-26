@@ -51,19 +51,26 @@ public class MapEngine {
   public void showInfoCountry() {
     while (true) {
       MessageCli.INSERT_COUNTRY.printMessage();
-      String countryName = Utils.scanner.nextLine();
-      String correctedCountryName = Utils.capitalizeFirstLetterOfEachWord(countryName);
+      String name = getCountryInput();
       try {
-        Country country = graph.getCountry(correctedCountryName);
+        Country country = graph.getCountry(name);
         MessageCli.COUNTRY_INFO.printMessage(
-            correctedCountryName, country.getContinent(), String.valueOf(country.getTax()));
+            name, country.getContinent(), String.valueOf(country.getTax()));
         break;
       } catch (CountryDoesNotExist e) {
-        MessageCli.INVALID_COUNTRY.printMessage(correctedCountryName);
+        MessageCli.INVALID_COUNTRY.printMessage(name);
       }
     }
   }
 
   /** this method is invoked when the user run the command route. */
   public void showRoute() {}
+
+  public String getCountryInput() {
+    while (true) {
+      String countryName = Utils.scanner.nextLine();
+      String correctedCountryName = Utils.capitalizeFirstLetterOfEachWord(countryName);
+      return correctedCountryName;
+    }
+  }
 }
