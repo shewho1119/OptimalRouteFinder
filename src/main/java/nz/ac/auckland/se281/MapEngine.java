@@ -31,23 +31,36 @@ public class MapEngine {
     for (String line : adjacencies) {
       String[] parts = line.split(",");
       String countryName = parts[0];
-      Country country = graph.getCountry(countryName);
-      for (int i = 1; i < parts.length; i++) {
-        Country neighbor = graph.getCountry(parts[i]);
-        graph.addEdge(country, neighbor);
+      try {
+        Country country = graph.getCountry(countryName);
+        for (int i = 1; i < parts.length; i++) {
+          try {
+            Country neighbor = graph.getCountry(parts[i]);
+            graph.addEdge(country, neighbor);
+          } catch (CountryDoesNotExist e) {
+            MessageCli.INVALID_COUNTRY.printMessage(countryName);
+          }
+        }
+      } catch (CountryDoesNotExist e) {
+        MessageCli.INVALID_COUNTRY.printMessage(countryName);
       }
     }
   }
 
   /** this method is invoked when the user run the command info-country. */
   public void showInfoCountry() {
-    MessageCli.INSERT_COUNTRY.printMessage();
-    String countryName = Utils.scanner.nextLine();
-
-    Country country = graph.getCountry(countryName);
-
-    MessageCli.COUNTRY_INFO.printMessage(
-        countryName, country.getContinent(), String.valueOf(country.getTax()));
+    while (true) {
+      MessageCli.INSERT_COUNTRY.printMessage();
+      String countryName = Utils.scanner.nextLine();
+      try {
+        Country country = graph.getCountry(countryName);
+        MessageCli.COUNTRY_INFO.printMessage(
+            countryName, country.getContinent(), String.valueOf(country.getTax()));
+        break;
+      } catch (CountryDoesNotExist e) {
+        MessageCli.INVALID_COUNTRY.printMessage(countryName);
+      }
+    }
   }
 
   /** this method is invoked when the user run the command route. */

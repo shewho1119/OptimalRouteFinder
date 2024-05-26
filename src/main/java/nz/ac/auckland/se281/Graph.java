@@ -23,7 +23,11 @@ public class Graph {
     adjNodes.get(country1).add(country2);
   }
 
-  public Country getCountry(String name) {
-    return countries.get(name);
+  public Country getCountry(String name) throws CountryDoesNotExist {
+    Country country = countries.get(name);
+    if (countries.get(name) == null) {
+      throw new CountryDoesNotExist();
+    }
+    return country;
   }
 }
