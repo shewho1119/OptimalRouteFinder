@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
+/**
+ * A class to keep track of countries(nodes) and their relationships(edges). This class enables us
+ * to add new Nodes and new Edges and create algorithms to find the shortest path between two nodes.
+ */
 public class Graph {
   private Map<String, Country> countries;
   private Map<Country, Set<Country>> adjNodes;
@@ -27,8 +31,18 @@ public class Graph {
     adjNodes.get(country1).add(country2);
   }
 
+  /**
+   * Getter method for country with the specified name from the map of countries. If the country
+   * does not exist, throws a CountryDoesNotExist exception with a custom error message indicating
+   * the name of the country that was not found.
+   *
+   * @param name The name of the country to return
+   * @return The country with the specified name
+   * @throws CountryDoesNotExist If the country with the specified name does not exist
+   */
   public Country getCountry(String name) throws CountryDoesNotExist {
     Country country = countries.get(name);
+    // If the country is not found, throw an exception
     if (countries.get(name) == null) {
       throw new CountryDoesNotExist(name);
     }
@@ -44,7 +58,7 @@ public class Graph {
    * @return A list of countries representing the shortest path from the source country to the
    *     destination country, or null if no path is found
    */
-  public List<Country> shortestPath(Country source, Country destination) {
+  public List<Country> findShortestPath(Country source, Country destination) {
 
     Map<Country, Country> parentMap = new HashMap<>(); // hashmap to record the linked countries
     Set<Country> visited = new HashSet<>(); // hashset to record the visited countries
