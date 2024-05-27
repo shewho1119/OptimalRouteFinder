@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** This class is the main entry point. */
@@ -92,7 +93,14 @@ public class MapEngine {
       }
     }
 
-    MessageCli.ROUTE_INFO.printMessage("[" + sourceName + ", " + destinationName + "]");
+    List<Country> path = graph.shortestPathBFS(source, destination);
+
+    List<String> pathString = new ArrayList<>();
+    for (Country country : path) {
+      pathString.add(country.getName());
+    }
+    String pathStringJoined = String.join(", ", pathString);
+    MessageCli.ROUTE_INFO.printMessage("[" + pathStringJoined + "]");
   }
 
   public String getCountryInput() {
