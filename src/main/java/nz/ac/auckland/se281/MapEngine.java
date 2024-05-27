@@ -1,7 +1,9 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /** This class is the main entry point. */
 public class MapEngine {
@@ -102,11 +104,11 @@ public class MapEngine {
     String pathStringJoined = String.join(", ", pathString);
     MessageCli.ROUTE_INFO.printMessage("[" + pathStringJoined + "]");
 
-    List<String> continentString = new ArrayList<>();
+    Set<String> continentString = new LinkedHashSet<>();
     for (Country country : path) {
       continentString.add(country.getContinent());
     }
-    String continentStringJoined = String.join(",", continentString);
+    String continentStringJoined = String.join(", ", continentString);
     MessageCli.CONTINENT_INFO.printMessage("[" + continentStringJoined + "]");
   }
 
