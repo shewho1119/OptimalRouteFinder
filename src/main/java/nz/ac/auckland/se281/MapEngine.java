@@ -26,6 +26,7 @@ public class MapEngine {
       String name = parts[0];
       String continent = parts[1];
       int tax = Integer.parseInt(parts[2]);
+      // creating new country object
       Country country = new Country(name, continent, tax);
       graph.addCountryNode(country);
     }
@@ -34,9 +35,11 @@ public class MapEngine {
     for (String line : adjacencies) {
       String[] parts = line.split(",");
       String countryName = parts[0];
+      // check if the country to load exists
       try {
         Country country = graph.getCountry(countryName);
         for (int i = 1; i < parts.length; i++) {
+          // check if the neighbor country exists
           try {
             Country neighbor = graph.getCountry(parts[i]);
             graph.addEdge(country, neighbor);
@@ -55,12 +58,14 @@ public class MapEngine {
     MessageCli.INSERT_COUNTRY.printMessage();
     while (true) {
       String name = getCountryInput();
+      // Check if the country exists
       try {
         Country country = graph.getCountry(name);
+        // if exist, print the country info
         MessageCli.COUNTRY_INFO.printMessage(
             name, country.getContinent(), String.valueOf(country.getTax()));
         break;
-      } catch (CountryDoesNotExist e) {
+      } catch (CountryDoesNotExist e) { // using exceptions to handle invalid country
         MessageCli.INVALID_COUNTRY.printMessage(name);
       }
     }
@@ -72,8 +77,10 @@ public class MapEngine {
     String destinationName;
     Country source = null;
     Country destination = null;
-    MessageCli.INSERT_SOURCE.printMessage();
 
+    // Get the source country input
+    MessageCli.INSERT_SOURCE.printMessage();
+    // Check if the source country exists
     while (true) {
       sourceName = getCountryInput();
       try {
@@ -84,7 +91,9 @@ public class MapEngine {
       }
     }
 
+    // Get the destination country input
     MessageCli.INSERT_DESTINATION.printMessage();
+    // Check if the destination country exists
     while (true) {
       destinationName = getCountryInput();
       try {
@@ -100,7 +109,7 @@ public class MapEngine {
       MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
       return;
     } else if (!(source.equals(destination))) {
-      List<Country> path = graph.shortestPathBFS(source, destination);
+      List<Country> path = graph.shortestPath(source, destination);
 
       // Convert the countries in the path to type String
       List<String> pathString = new ArrayList<>();
@@ -128,6 +137,7 @@ public class MapEngine {
     }
   }
 
+  // Helper method to get the country input, and capitalize first letter capitalized
   public String getCountryInput() {
     while (true) {
       String countryName = Utils.scanner.nextLine();
