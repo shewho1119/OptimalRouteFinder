@@ -95,31 +95,37 @@ public class MapEngine {
       }
     }
 
-    List<Country> path = graph.shortestPathBFS(source, destination);
+    // Check if the same source and destination were chosen
+    if (source.equals(destination)) {
+      MessageCli.NO_CROSSBORDER_TRAVEL.printMessage();
+      return;
+    } else if (!(source.equals(destination))) {
+      List<Country> path = graph.shortestPathBFS(source, destination);
 
-    // Convert the countries in the path to type String
-    List<String> pathString = new ArrayList<>();
-    for (Country country : path) {
-      pathString.add(country.getName());
-    }
-    String pathStringJoined = String.join(", ", pathString);
-    MessageCli.ROUTE_INFO.printMessage("[" + pathStringJoined + "]");
+      // Convert the countries in the path to type String
+      List<String> pathString = new ArrayList<>();
+      for (Country country : path) {
+        pathString.add(country.getName());
+      }
+      String pathStringJoined = String.join(", ", pathString);
+      MessageCli.ROUTE_INFO.printMessage("[" + pathStringJoined + "]");
 
-    // get the continents in type String from the countries
-    Set<String> continentString = new LinkedHashSet<>();
-    for (Country country : path) {
-      continentString.add(country.getContinent());
-    }
-    String continentStringJoined = String.join(", ", continentString);
-    MessageCli.CONTINENT_INFO.printMessage("[" + continentStringJoined + "]");
+      // get the continents in type String from the countries
+      Set<String> continentString = new LinkedHashSet<>();
+      for (Country country : path) {
+        continentString.add(country.getContinent());
+      }
+      String continentStringJoined = String.join(", ", continentString);
+      MessageCli.CONTINENT_INFO.printMessage("[" + continentStringJoined + "]");
 
-    // Calculate and print the total tax
-    int totalTax = 0;
-    for (int i = 1; i < path.size(); i++) {
-      Country country = path.get(i);
-      totalTax += country.getTax();
+      // Calculate and print the total tax
+      int totalTax = 0;
+      for (int i = 1; i < path.size(); i++) {
+        Country country = path.get(i);
+        totalTax += country.getTax();
+      }
+      MessageCli.TAX_INFO.printMessage(Integer.toString(totalTax));
     }
-    MessageCli.TAX_INFO.printMessage(Integer.toString(totalTax));
   }
 
   public String getCountryInput() {
