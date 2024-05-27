@@ -67,13 +67,14 @@ public class MapEngine {
   public void showRoute() {
     String sourceName;
     String destinationName;
+    Country source = null;
+    Country destination = null;
     MessageCli.INSERT_SOURCE.printMessage();
+
     while (true) {
       sourceName = getCountryInput();
       try {
-        Country country = graph.getCountry(sourceName);
-        MessageCli.COUNTRY_INFO.printMessage(
-            sourceName, country.getContinent(), String.valueOf(country.getTax()));
+        source = graph.getCountry(sourceName);
         break;
       } catch (CountryDoesNotExist e) {
         MessageCli.INVALID_COUNTRY.printMessage(sourceName);
@@ -84,9 +85,7 @@ public class MapEngine {
     while (true) {
       destinationName = getCountryInput();
       try {
-        Country country = graph.getCountry(destinationName);
-        MessageCli.COUNTRY_INFO.printMessage(
-            destinationName, country.getContinent(), String.valueOf(country.getTax()));
+        destination = graph.getCountry(destinationName);
         break;
       } catch (CountryDoesNotExist e) {
         MessageCli.INVALID_COUNTRY.printMessage(destinationName);

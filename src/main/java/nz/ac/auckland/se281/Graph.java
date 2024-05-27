@@ -1,8 +1,12 @@
 package nz.ac.auckland.se281;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 public class Graph {
@@ -29,5 +33,43 @@ public class Graph {
       throw new CountryDoesNotExist();
     }
     return country;
+  }
+
+  public List<Country> shortestPathBFS(Country source, Country destination) {
+    Map<Country, Country> parentMap = new HashMap<>();
+    Set<Country> visited = new HashSet<>();
+    Queue<Country> queue = new LinkedList<>();
+
+    queue.add(source);
+    visited.add(source);
+    parentMap.put(source, null);
+
+    for (int i = 0; i < 3; i++) {
+      Country current = queue.poll();
+
+      for (Country neighbor : adjNodes.get(current)) {
+        if (!visited.contains(neighbor)) {
+          visited.add(neighbor);
+          queue.add(neighbor);
+          parentMap.put(neighbor, current);
+
+          if (neighbor.equals(destination)) {
+            return createPath(parentMap, source, destination);
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  private List<Country> createPath(
+      Map<Country, Country> parentMap, Country source, Country destination) {
+
+    LinkedList<Country> path = new LinkedList<>();
+
+    for (Country i = destination; i != null; i = parentMap.get(i)) {
+      path.addFirst(i);
+    }
+    return path;
   }
 }
