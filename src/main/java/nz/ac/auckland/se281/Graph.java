@@ -44,7 +44,7 @@ public class Graph {
     visited.add(source);
     parentMap.put(source, null);
 
-    for (int i = 0; i < 5; i++) {
+    while (!queue.isEmpty()) {
       Country current = queue.poll();
 
       for (Country neighbor : adjNodes.get(current)) {
