@@ -101,6 +101,13 @@ public class MapEngine {
     }
     String pathStringJoined = String.join(", ", pathString);
     MessageCli.ROUTE_INFO.printMessage("[" + pathStringJoined + "]");
+
+    List<String> continentString = new ArrayList<>();
+    for (Country country : path) {
+      continentString.add(country.getContinent());
+    }
+    String continentStringJoined = String.join(",", continentString);
+    MessageCli.CONTINENT_INFO.printMessage("[" + continentStringJoined + "]");
   }
 
   public String getCountryInput() {
