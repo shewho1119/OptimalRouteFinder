@@ -7,7 +7,7 @@ public class Country {
   private int tax;
 
   /**
-   * Constructs a new Country object with the specified name, continent, and tax rate.
+   * Constructs a new Country object with the argument name, continent, and tax rate.
    *
    * @param name The name of the country
    * @param continent The continent to which the country belongs

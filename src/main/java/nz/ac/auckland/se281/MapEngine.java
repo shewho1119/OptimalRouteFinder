@@ -10,13 +10,11 @@ public class MapEngine {
   private Graph graph;
 
   /**
-   * Constructs a new MapEngine object and initializes the graph by creating a new instance of the
-   * Graph class. It also invokes the loadMap method to load the map data into the graph.
+   * Constructs a new MapEngine object and make a graph. It also invokes the loadMap method to load
+   * the map data into the graph.
    */
   public MapEngine() {
-    // Create a new instance of the Graph class to represent the map
     graph = new Graph();
-    // Load map data into the graph by invoking the loadMap method
     loadMap();
   }
 
@@ -142,9 +140,8 @@ public class MapEngine {
     }
   }
 
-  // Helper method to get the country input, and capitalize first letter capitalized
   /**
-   * Helper method to get the country input, and capitalize first letter capitalized
+   * Helper method to get the country input, and capitalize first letter
    *
    * @return The corrected country name inputted by the user
    */

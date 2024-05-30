@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * A class to keep track of countries(nodes) and their relationships(edges). This class enables us
- * to add new Nodes and new Edges and create algorithms to find the shortest path between two nodes.
+ * to add new Nodes and new Edges and find the shortest path between two nodes.
  */
 public class Graph {
   private Map<String, Country> countries;
@@ -32,13 +32,12 @@ public class Graph {
   }
 
   /**
-   * Getter method for country with the specified name from the map of countries. If the country
-   * does not exist, throws a CountryDoesNotExist exception with a custom error message indicating
-   * the name of the country that was not found.
+   * Getter method for country from the map of countries. If the country does not exist, throws a
+   * CountryDoesNotExist exception.
    *
    * @param name The name of the country to return
-   * @return The country with the specified name
-   * @throws CountryDoesNotExist If the country with the specified name does not exist
+   * @return The country with the argument name
+   * @throws CountryDoesNotExist If the country is not an existing country
    */
   public Country getCountry(String name) throws CountryDoesNotExist {
     Country country = countries.get(name);
@@ -64,7 +63,6 @@ public class Graph {
     Set<Country> visited = new HashSet<>(); // hashset to record the visited countries
     Queue<Country> queue = new LinkedList<>(); // queue to store the countries to be visited
 
-    // initialize the source country
     queue.add(source);
     visited.add(source);
     parentMap.put(source, null);
@@ -93,13 +91,12 @@ public class Graph {
 
   /**
    * Creates a path from the destination country to the source country based on the parentMap which
-   * contains mappings from each country to its parent country. The path is constructed by
-   * traversing the parentMap from the destination country back to the source country.
+   * contains mappings from each country to its parent country.
    *
-   * @param parentMap A map containing mappings from each country to its parent country
+   * @param parentMap Mappings from each country to its parent country
    * @param source The origin country
    * @param destination The destination country
-   * @return path A linked list representing the fastest route from the source country to the
+   * @return path A Linkedlist representing the fastest route from the source country to the
    *     destination country
    */
   private List<Country> createPath(
